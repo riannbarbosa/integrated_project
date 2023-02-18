@@ -10,6 +10,8 @@ The repository is organized in folder, each folder contains the resources of eac
 
 **Link to the Relational Model** = https://app.quickdatabasediagrams.com/#/d/gb20eQ
 
+The Relational Model PNG file is also in the DB I directory.
+
 **SOFTWARE ENGINEER I :**
 
 **Prototype Link** = https://www.figma.com/file/XT6KbtcQBrusHe4y2eZnwf/Projeto-Integrador?node-id=0%3A1&t=rnGNlKSaAA18QFIN-1
