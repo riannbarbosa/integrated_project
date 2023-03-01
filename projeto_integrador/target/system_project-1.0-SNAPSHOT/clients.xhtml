@@ -1,0 +1,153 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://primefaces.org/ui ">
+
+<h:head>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&amp;display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/clients.css"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+</h:head>
+
+<h:body>
+
+
+
+        <div class="sidebar">
+            <div class="content">
+                <a href="dashboard.xhtml">Dashboard</a>
+                <a href="user.xhtml" >Usuário</a>
+                <a href="orders.xhtml">Cadastro Vendas </a>
+                <a href="clients.xhtml"  class="clients">Registrar Clientes</a>
+                <a href="resources.xhtml">Cadastro Materiais</a>
+            </div>
+        </div>
+
+    <h:form id="dialogs">
+        <p:growl id="messages"/>
+        <p:dialog header="Novo Usuário" showEffect="fade" modal="true" widgetVar="clientDialog" responsive="true">
+            <p:outputPanel id="client-conteudo-dialog" class="ui-fluid">
+                <p:outputPanel >
+                    <div class="field">
+                        <p:outputLabel for="nome">Usuário</p:outputLabel>
+                        <p:inputText id="nome" value="#{clientsController.clients.name}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="email">Telefone</p:outputLabel>
+                        <p:inputText id="email" value="#{clientsController.clients.phone}" required="false"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="city">Cidade</p:outputLabel>
+                        <p:inputText id="city" value="#{clientsController.clients.city}" required="true"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="street">Rua</p:outputLabel>
+                        <p:inputText id="street" value="#{clientsController.clients.street}" required="false"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="neigh">Bairro</p:outputLabel>
+                        <p:inputText id="neigh" value="#{clientsController.clients.neighborhood}" required="false"/>
+
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="stnumber">Número</p:outputLabel>
+                        <p:inputText id="stnumber" value="#{clientsController.clients.number}" required="false"/>
+                    </div>
+
+
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Salvar" icon="pi pi-check" actionListener="#{clientsController.addNewClient}"
+                                 update="client-conteudo-dialog dialogs:messages" process="client-conteudo-dialog @this" />
+                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('clientDialog').hide()" class="ui-button-secondary" type="button" />
+            </f:facet>
+        </p:dialog>
+
+        <p:confirmDialog widgetVar="removerClientDialog" showEffect="fade" width="300"
+                         message="Desejar remover este usuário?" header="Confirm" severity="warn">
+            <p:commandButton value="Sim     " icon="pi pi-check" actionListener="#{clientsController.remover}"
+                             process="@this" oncomplete="PF('removerClientDialog').hide()" />
+            <p:commandButton value="Não" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('removerUsuarioDialog').hide()" />
+        </p:confirmDialog>
+
+    </h:form>
+
+            <h:form>
+                <p:growl id="messages" showDetail="true"/>
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo Cliente"   icon="pi pi-plus" actionListener="#{clientsController.newClient}"
+                                         update = ":dialogs:client-conteudo-dialog" oncomplete="PF('clientDialog').show()" styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:client-conteudo-dialog" />
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                    </p:toolbar>
+
+
+                <p:dataTable id="dt-usuarios" widgetVar="dtUsuarios" var="us" value="#{clientsController.listClients}">
+                    <f:facet name="header">
+                        <div>
+                            <span style="font-weight: bold">Usuários</span>
+                        </div>
+                    </f:facet>
+
+                    <p:column headerText="Nome" sortBy="#{us.name}">
+                        <h:outputText value="#{us.name}" />
+                    </p:column>
+                    <p:column headerText="Telefone">
+                        <h:outputText value="#{us.phone}" />
+                    </p:column>
+                    <p:column headerText="Cidade">
+                        <h:outputText value="#{us.city}" />
+                    </p:column>
+                    <p:column headerText="Rua">
+                        <h:outputText value="#{us.street}" />
+                    </p:column>
+                    <p:column headerText="Bairro">
+                        <h:outputText value="#{us.neighborhood}" />
+                    </p:column>
+                    <p:column headerText="Número">
+                        <h:outputText value="#{us.number}" />
+                    </p:column>
+
+
+
+
+
+                    <p:column headerText="Ações">
+                        <!-- Cuidado com botões que usam AJAX -->
+                        <!-- process indica qual elemento do formulário será processado (padrão é todo o formulário), @this é só o próprio elemento -->
+                        <!-- update informa qual elemento será atualizado (renderizado novamente) ao finalizar ação -->
+                        <!-- é possível disparar ações para diversos eventos Javascript, deve-se cuidar a ordem da resolução dos mesmos -->
+                        <!-- como regra geral a prioridade de processamento é a seguinte (eventos on... - oncomplete, onclick, onblur, actionListener, action, oncomplete no final) -->
+                        <!-- PF é usado para chamada de função Javascript de algum elemento do Primefaces -->
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:client-conteudo-dialog"
+                                         oncomplete="PF('clientDialog').show()" action="#{clientsController.addNewClient}"
+                                         styleClass="edit-button rounded-button ui-button-success" process="@this">
+                            <f:setPropertyActionListener value="#{us}" target="#{clientsController.clients}" />
+                            <p:resetInput target=":dialogs:client-conteudo-dialog" />
+                        </p:commandButton>
+                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                         process="@this" oncomplete="PF('removerClientDialog').show()">
+                            <f:setPropertyActionListener value="#{us}" target="#{clientsController.clients}" />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+
+
+
+
+
+
+</h:body>
+</html>

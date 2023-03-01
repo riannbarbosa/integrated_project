@@ -1,0 +1,95 @@
+html, body{
+    width: auto;
+    height: 100vh;
+}
+
+body {
+    background: #CDB7A7;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display:flex;
+}
+
+main{
+    display: flex;
+    margin: auto;
+    background: #D9D9D9;
+    width: 330px;
+    height: 400px;
+    flex-direction: column;
+}
+
+form {
+    margin:auto;
+
+}
+h1{
+    position: relative;
+    top:50px;
+    right: 75px;
+
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 1rem;
+}
+input::-webkit-input-placeholder{
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: #AFAEAE;
+    line-height: 15px;
+}
+header {
+    height: 100px;
+}
+.email, .password, .name, .passwordConfirm{
+    padding: 10px;
+    width: 215px;
+    outline:none;
+    border:none;
+    margin: 9px;
+}
+body .ui-inputfield {
+    font-size: 13px;
+}
+.registerButton {
+    width: 121px;
+    height: 35px;
+    background: #FFFFFF;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    color:#2175F3;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 14px;
+    margin-left: 50%;
+    cursor: pointer;
+}
+.registerButton:hover{
+    color:#FFFFFF;
+    background: #2175F3;
+
+}
+.registerLink, .registerLink2{
+    font-size: 0.8rem;
+}
+
+table{
+    margin-top:15px;
+}
+.returnDiv {
+    background: #CDB7A7;
+    width: 17px;
+    height: 17px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    bottom: 10px;
+    right: 40px;
+    font-size: 0.85rem;
+    float: right;
+}
+.backButton {
+    text-decoration: none;
+}

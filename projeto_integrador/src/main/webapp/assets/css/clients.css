@@ -1,0 +1,30 @@
+.clients {
+    background: black !important;
+    color: #D9D9D9  !important;
+
+}
+
+form  {
+    width: 900px;
+    position: relative;
+    right: 300px;
+    margin-right: -190px;
+    font-family: 'Playfair Display', serif;
+
+}
+
+
+
+form td {
+
+    font-family: 'Playfair Display', serif;
+
+}
+form span {
+
+    font-family: 'Playfair Display', serif;
+
+}
+
+
+

@@ -1,0 +1,137 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://primefaces.org/ui ">
+
+<h:head>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&amp;display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/resources.css"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+
+
+</h:head>
+
+<h:body>
+
+    <div class="sidebar">
+        <div class="content">
+            <a href="dashboard.xhtml">Dashboard</a>
+            <a href="user.xhtml">Usuário</a>
+            <a href="orders.xhtml">Cadastro Vendas </a>
+            <a href="clients.xhtml">Registrar Clientes</a>
+            <a href="resources.xhtml" class="resources">Cadastro Materiais</a>
+        </div>
+    </div>
+
+    <h:form id="dialogs">
+        <p:growl id="messages"/>
+        <p:dialog header="Novo Material" showEffect="fade" modal="true" widgetVar="resourcesDialog" responsive="true">
+            <p:outputPanel id="resources-conteudo-dialog" class="ui-fluid">
+                <p:outputPanel >
+                    <div class="field">
+                        <p:outputLabel for="nome">Nome</p:outputLabel>
+                        <p:inputText id="nome" value="#{resourcesController.resources.name}" required="true" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="spanish">Data Compra</p:outputLabel>
+                        <p:datePicker id="spanish" value="#{resourcesController.resources.datebuy}" showSeconds="false" showMilliseconds="false" showTime="false" monthNavigator="true"
+                                      pattern="dd/MM/yyyy"/>
+
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="value">Valor</p:outputLabel>
+                        <p:inputText id="value" value="#{resourcesController.resources.value}"   required="true"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="desc">Descrição</p:outputLabel>
+                        <p:inputText id="desc" value="#{resourcesController.resources.desc_type}" required="false"/>
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Salvar" icon="pi pi-check" actionListener="#{resourcesController.addNewResource}"
+                                 update="resources-conteudo-dialog dialogs:messages" process="resources-conteudo-dialog @this" />
+                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('resourceDialog').hide()" class="ui-button-secondary" type="button" />
+            </f:facet>
+        </p:dialog>
+
+        <p:confirmDialog widgetVar="removerResourcesDialog" showEffect="fade" width="300"
+                         message="Deseja remover este Material?" header="Confirm" severity="warn">
+            <p:commandButton value="Sim" icon="pi pi-check" actionListener="#{resourcesController.remover}"
+                             process="@this" oncomplete="PF('removerResourcesDialog').hide()" />
+            <p:commandButton value="Não" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('removerResourcesDialog').hide()" />
+        </p:confirmDialog>
+
+
+    </h:form>
+
+
+    <h:form id="table">
+        <p:growl id="messages" showDetail="true"/>
+
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="Novo Material"   icon="pi pi-plus" actionListener="#{resourcesController.newResource}"
+                                 update = ":dialogs:resources-conteudo-dialog" oncomplete="PF('resourcesDialog').show()" styleClass="ui-button-success" style="margin-right: .5rem">
+                    <p:resetInput target=":dialogs:resources-conteudo-dialog" />
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+
+
+
+        <p:dataTable id="dt-resources" widgetVar="dtResources" var="us" value="#{resourcesController.listResources}" >
+            <f:facet name="header">
+                <div>
+                    <span style="font-weight: bold">Materiais</span>
+                </div>
+            </f:facet>
+
+
+            <p:column headerText="Nome" sortBy="#{us.name}">
+                <h:outputText value="#{us.name}" />
+            </p:column>
+            <p:column headerText="Data da Compra" sortBy="#{us.datebuy}">
+                <h:outputText value="#{us.datebuy}" />
+            </p:column>
+            <p:column headerText="Valor" sortBy="#{us.value}">
+                <h:outputText value="#{us.value}" />
+            </p:column>
+            <p:column headerText="Descrição">
+
+                    <h:outputText value="#{us.desc_type}" />
+            </p:column>
+
+
+
+
+            <p:column headerText="Ações">
+
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:resources-conteudo-dialog"
+                                 oncomplete="PF('resourcesDialog').show()" action="#{resourcesController.addNewResource}"
+                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{us}" target="#{resourcesController.resources}" />
+                    <p:resetInput target=":dialogs:resources-conteudo-dialog" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this" oncomplete="PF('removerResourcesDialog').show()">
+                    <f:setPropertyActionListener value="#{us}" target="#{resourcesController.resources}" />
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
+
+
+
+
+
+
+</h:body>
+</html>

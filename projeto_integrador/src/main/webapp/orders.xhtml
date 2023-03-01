@@ -1,0 +1,143 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://primefaces.org/ui ">
+
+<h:head>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&amp;display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/orders.css"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+</h:head>
+
+<h:body>
+
+    <div class="sidebar">
+        <div class="content">
+            <a href="dashboard.xhtml">Dashboard</a>
+            <a href="user.xhtml">Usuário</a>
+            <a href="orders.xhtml" class="sales">Cadastro Vendas </a>
+            <a href="clients.xhtml">Registrar Clientes</a>
+            <a href="resources.xhtml">Cadastro Materiais</a>
+        </div>
+    </div>
+
+    <h:form id="dialogs">
+        <p:growl id="messages"/>
+        <p:dialog header="Nova Encomenda" showEffect="fade" modal="true" widgetVar="ordersDialog" responsive="true">
+            <p:outputPanel id="orders-conteudo-dialog" class="ui-fluid">
+                <p:outputPanel >
+                    <div class="field col-12 md:col-4">
+                        <p:outputLabel value="Nome" for="@next"/>
+                        <p:autoComplete id="dd" dropdown="true" value="#{ordersController.orders.name}"
+                                        completeMethod="#{ordersController.displayNameClient()}" scrollHeight="250"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="spanish">Data Entrega</p:outputLabel>
+                        <p:datePicker id="spanish" value="#{ordersController.orders.order_date}" showSeconds="false" showMilliseconds="false" showTime="false" monthNavigator="true"
+                                      pattern="dd/MM/yyyy"/>
+
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="value">Valor</p:outputLabel>
+                        <p:inputText id="value" value="#{ordersController.orders.value}"   required="true"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="status">Status</p:outputLabel>
+                        <p:inputText id="status" value="#{ordersController.orders.status}"  placeholder="0 - Em Aberto, 1 - Finalizado" required="false"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="descr">Descrição</p:outputLabel>
+                        <p:inputText id="descr" value="#{ordersController.orders.description}" required="false"/>
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Salvar" icon="pi pi-check" actionListener="#{ordersController.addNewOrder}"
+                                 update="orders-conteudo-dialog dialogs:messages" process="orders-conteudo-dialog @this" />
+                <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('ordersDialog').hide()" class="ui-button-secondary" type="button" />
+            </f:facet>
+        </p:dialog>
+
+        <p:confirmDialog widgetVar="removerOrdersDialog" showEffect="fade" width="300"
+                         message="Deseja remover esta encomenda?" header="Confirm" severity="warn">
+            <p:commandButton value="Sim" icon="pi pi-check" actionListener="#{ordersController.remover}"
+                             process="@this" oncomplete="PF('removerOrdersDialog').hide()" />
+            <p:commandButton value="Não" type="button" styleClass="ui-button-secondary" icon="pi pi-times" onclick="PF('removerOrdersDialog').hide()" />
+        </p:confirmDialog>
+
+
+    </h:form>
+
+
+    <h:form id="table">
+        <p:growl id="messages" showDetail="true"/>
+
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="Nova Encomenda"   icon="pi pi-plus" actionListener="#{ordersController.newOrder}"
+                                 update = ":dialogs:orders-conteudo-dialog" oncomplete="PF('ordersDialog').show()" styleClass="ui-button-success" style="margin-right: .5rem">
+                    <p:resetInput target=":dialogs:orders-conteudo-dialog" />
+                </p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+
+
+
+        <p:dataTable id="dt-orders" widgetVar="dtOrders" var="us" value="#{ordersController.listOrders}" >
+            <f:facet name="header">
+                <div>
+                    <span style="font-weight: bold">Encomendas</span>
+                </div>
+            </f:facet>
+
+
+            <p:column headerText="Nome" sortBy="#{us.name}">
+                <h:outputText value="#{us.name}" />
+            </p:column>
+            <p:column headerText="Data da Entrega" sortBy="#{us.order_date}">
+                <h:outputText value="#{us.order_date}" />
+            </p:column>
+            <p:column headerText="Valor" sortBy="#{us.value}">
+                <h:outputText value="#{us.value}" />
+            </p:column>
+            <p:column headerText="Status" sortBy="#{us.status}">
+                <h:outputText value="#{us.status}" />
+            </p:column>
+            <p:column headerText="Descrição">
+
+                <h:outputText value="#{us.description}" />
+            </p:column>
+
+
+
+
+            <p:column headerText="Ações">
+
+                <p:commandButton icon="pi pi-pencil" update=":dialogs:orders-conteudo-dialog"
+                                 oncomplete="PF('ordersDialog').show()" action="#{resourcesController.addNewResource}"
+                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+                    <f:setPropertyActionListener value="#{us}" target="#{resourcesController.resources}" />
+                    <p:resetInput target=":dialogs:orders-conteudo-dialog" />
+                </p:commandButton>
+                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                 process="@this" oncomplete="PF('removerOrdersDialog').show()">
+                    <f:setPropertyActionListener value="#{us}" target="#{resourcesController.resources}" />
+                </p:commandButton>
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
+
+
+
+
+
+</h:body>
+</html>

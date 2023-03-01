@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://primefaces.org/ui ">
+
+<h:head>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&amp;display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/login_screen.css"/>
+</h:head>
+
+<h:body>
+
+    <main>
+        <header>
+            <h1>Conectar</h1>
+            <p:graphicImage style="width: 75.25px; height: 33.16px; position: relative;
+            right: 80px; bottom:11px" value="assets/img/sewingimg.png"/>
+        </header>
+        <h:form id="dialogs">
+            <p:dialog header="Novo Cadastro" showEffect="fade" modal="true" widgetVar="registerDialog" responsive="true">
+                <p:outputPanel id="register-conteudo-dialog" class="ui-fluid">
+                    <p:outputPanel >
+                        <div class="field">
+                            <p:outputLabel for="nome">Nome</p:outputLabel>
+                            <p:inputText id="nome" value="#{registerController.user.usuario}" required="true" />
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="email">Email</p:outputLabel>
+                            <p:inputText id="email" value="#{registerController.user.senha}" required="false"/>
+                        </div>
+                        <div class="field">
+                            <p:outputLabel for="pass">Senha</p:outputLabel>
+                            <p:inputText id="pass" value="#{registerController.user.senha}" required="true"/>
+                        </div>
+
+
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Salvar" icon="pi pi-check" actionListener="#{registerController.save}"
+                                     update="register-conteudo-dialog " process="register-conteudo-dialog @this" />
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('registerDialog').hide()" class="ui-button-secondary" type="button" />
+                </f:facet>
+            </p:dialog>
+        </h:form>
+
+
+
+
+        <h:form id = "form">
+            <p:growl id="messages" showDetail="true" />
+
+            <h:panelGrid columns="2">
+                <p:inputText class="name" required="true"  label="name"
+                              id="name" value="#{loginController.user.usuario}">
+
+                </p:inputText>
+                <p:watermark for="name" value="Nome" id="watermark"/>
+
+                <p:password class="password" id="password" value="#{loginController.user.senha}" redisplay="true" toggleMask="true" weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte"/>
+                <p:watermark class="waterpass" for="password" value="Senha" id="watermark2"/>
+            </h:panelGrid>
+            <p>
+                <h:panelGrid columns="1">
+                    <h:commandButton class="loginButton" value="Login" action="#{loginController.login}"/>
+                    <h:messages styleClass="messages" errorClass="invalid" infoClass="valid" warnClass="warning"
+                                globalOnly="true"/>
+
+                </h:panelGrid>
+        </p>
+            <p class="registerLink"> Não possui conta?
+            <p:commandButton value="Registrar-se"  actionListener="#{registerController.novoCadastro}"
+                             update=":dialogs:register-conteudo-dialog" oncomplete="PF('registerDialog').show()"
+                             styleClass="ui-button-success" style="margin-right: .5rem">
+                <p:resetInput target=":dialogs:register-conteudo-dialog" />
+            </p:commandButton>
+        </p>
+        </h:form>
+    </main>
+</h:body>
+</html>

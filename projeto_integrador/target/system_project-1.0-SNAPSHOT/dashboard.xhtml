@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://primefaces.org/ui ">
+
+<h:head>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&amp;display=swap"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/dashboard.css"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+</h:head>
+
+<h:body>
+
+
+
+    <div class="sidebar">
+        <div class="content">
+            <a href="dashboard.xhtml" class="dashboard">Dashboard</a>
+            <a href="user.xhtml">Usuário</a>
+            <a href="orders.xhtml">Cadastro Vendas </a>
+            <a href="clients.xhtml">Registrar Clientes</a>
+            <a href="resources.xhtml">Cadastro Materiais</a>
+         </div>
+    </div>
+
+    <div class="container">
+        <div >
+            <h3>VENDAS TOTAIS </h3>
+            <h:outputText class="elementL" value="R$ #{dashboardController.sumOfResources}" />
+        </div>
+        <div>
+            <h3>DESPESAS TOTAIS </h3>
+            <h:outputText class="elementD" value="- R$ #{dashboardController.sumValue}" />
+        </div>
+        <div>
+            <h3>LUCRO ATUAL</h3>
+            <h:outputText   class="elementT" value="R$ #{dashboardController.realProfitCalc()}" />
+        </div>
+</div>
+
+</h:body>
+</html>

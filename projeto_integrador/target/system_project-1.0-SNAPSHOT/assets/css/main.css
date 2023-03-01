@@ -1,0 +1,131 @@
+html, body{
+    width: auto;
+    height: 100vh;
+}
+
+body {
+    background: #CDB7A7;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display:flex;
+}
+
+.sidebar {
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    overflow-x: hidden;
+    padding-top: 20px;
+    width: 249px;
+    height: 832px;
+    left: 1px;
+    top: 0;
+    background: #E4E4E4;
+    border-bottom-right-radius: 16px;
+    border-top-right-radius: 16px;
+
+}
+
+/* Style the links inside the sidebar */
+.sidebar a {
+    padding: 15px;
+    text-decoration: none;
+    color: #000;
+    margin:8px;
+    display: block;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    border-radius: 9px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    width: 188px;
+    height: 50px;
+    background: #D9D9D9;
+}
+
+/* Change color on hover */
+.sidebar a:hover {
+    background-color: #B9B9B9;
+    color: #000;
+}
+
+/* Style the main content */
+.main {
+    margin-left: 200px; /* Same as the width of the sidebar */
+    padding: 0 20px;
+}
+
+body .ui-inputfield {
+    font-size: 13px;
+}
+.content {
+    position: relative;
+    top: 190px;
+    left: 25px;
+}
+
+
+
+body .ui-toolbar {
+
+    background: #D9D9D9;
+    border: 1px solid #908D8D
+}
+
+
+.exportButton {
+    background: #FFFFFF;
+    border-radius: 4px;
+    width: 68px;
+    height: 24px;
+    font-family: 'Playfair Display', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    right: 550px;
+}
+.exportButton:hover{
+    background: #B9B9B9;
+
+}
+
+
+.deleteButton {
+    background: #C12B2B;
+    border-radius: 4px;
+    width: 68px;
+    height: 24px;
+    border: none;
+    color:white;
+    cursor: pointer;
+}
+.deleteButton:hover{
+    background: red;
+}
+
+.addnew {
+    background: #2175F3;
+    border-radius: 12px;
+    width: 129px;
+    height: 67px;
+
+    color: #FFFFFF;
+    border: none;
+    font-family: 'Playfair Display', serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 21px;
+    text-align: center;
+    position: relative;
+    left: 530px;
+    bottom: 40px;
+}
