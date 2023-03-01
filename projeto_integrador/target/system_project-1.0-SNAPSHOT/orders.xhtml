@@ -16,6 +16,9 @@
 <h:body>
 
     <div class="sidebar">
+        <h4>Olá</h4>
+        <h:outputText value="#{loginController.user.usuario}">  </h:outputText>
+        <p>Seja bem Vindo(a)</p>
         <div class="content">
             <a href="dashboard.xhtml">Dashboard</a>
             <a href="user.xhtml">Usuário</a>
@@ -23,6 +26,9 @@
             <a href="clients.xhtml">Registrar Clientes</a>
             <a href="resources.xhtml">Cadastro Materiais</a>
         </div>
+    </div>
+
+    <div class="title">  <h1>Encomendas</h1>
     </div>
 
     <h:form id="dialogs">
@@ -33,12 +39,11 @@
                     <div class="field col-12 md:col-4">
                         <p:outputLabel value="Nome" for="@next"/>
                         <p:autoComplete id="dd" dropdown="true" value="#{ordersController.orders.name}"
-                                        completeMethod="#{ordersController.displayNameClient()}" scrollHeight="250"/>
+                                        completeMethod="#{ordersController.completeName()}" scrollHeight="250"/>
                     </div>
                     <div class="field">
                         <p:outputLabel for="spanish">Data Entrega</p:outputLabel>
-                        <p:datePicker id="spanish" value="#{ordersController.orders.order_date}" showSeconds="false" showMilliseconds="false" showTime="false" monthNavigator="true"
-                                      pattern="dd/MM/yyyy"/>
+                        <p:datePicker id="spanish" value="#{ordersController.orders.order_date}" pattern="dd/MM/yyyy"/>
 
                     </div>
                     <div class="field">
@@ -47,7 +52,7 @@
                     </div>
                     <div class="field">
                         <p:outputLabel for="status">Status</p:outputLabel>
-                        <p:inputText id="status" value="#{ordersController.orders.status}"  placeholder="0 - Em Aberto, 1 - Finalizado" required="false"/>
+                        <p:inputText id="status" value="#{ordersController.orders.status}"  placeholder="true = Finalizado, false = Em Aberto" required="false"/>
                     </div>
 
                     <div class="field">

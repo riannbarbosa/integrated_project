@@ -12,6 +12,11 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
+import javax.transaction.Transaction;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,13 +36,22 @@ public class ClientsController implements Serializable   {
     private FacesContext facesContext;
 
     @Inject
+    private EntityManager entityManager;
+
+
+
+
+    @Inject
     private ClientsDAO clientsDAO;
 
 
-    private List<Addresses> listAddresses;
     private List<Clients> listClients;
 
+    private List<Clients> query;
+
+
     private Clients clients;
+
 
     @PostConstruct
     public void init() {
@@ -66,6 +80,8 @@ public class ClientsController implements Serializable   {
             this.facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, errorMessage, null));
 
         }
+
+
     }
 
     public void remover() {
@@ -105,13 +121,7 @@ public class ClientsController implements Serializable   {
 
 
 
-    public List<Addresses> getListAddresses() {
-        return listAddresses;
-    }
 
-    public void setListAddresses(List<Addresses> listAddresses) {
-        this.listAddresses = listAddresses;
-    }
 
     public List<Clients> getListClients() {
         return listClients;
@@ -128,4 +138,5 @@ public class ClientsController implements Serializable   {
     public void setClients(Clients clients) {
         this.clients = clients;
     }
+
 }

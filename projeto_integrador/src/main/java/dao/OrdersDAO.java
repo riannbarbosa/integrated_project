@@ -25,9 +25,9 @@ public class OrdersDAO implements Serializable {
 
 
     public void saveOrd(Orders u) {
-        em.getTransaction().begin();
         em.persist(u);
-        em.getTransaction().commit();
+
+
     }
 
     public void updateOrd(Orders u) { em.merge(u);}

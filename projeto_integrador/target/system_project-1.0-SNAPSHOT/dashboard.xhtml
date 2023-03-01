@@ -18,7 +18,11 @@
 
 
     <div class="sidebar">
+        <h4>Olá</h4>
+        <h:outputText value="#{loginController.user.usuario}">  </h:outputText>
+        <p>Seja bem Vindo(a)</p>
         <div class="content">
+
             <a href="dashboard.xhtml" class="dashboard">Dashboard</a>
             <a href="user.xhtml">Usuário</a>
             <a href="orders.xhtml">Cadastro Vendas </a>
@@ -27,14 +31,17 @@
          </div>
     </div>
 
+    <div class="dash"> <h1>Dashboard</h1>
+    </div>
+
     <div class="container">
         <div >
             <h3>VENDAS TOTAIS </h3>
-            <h:outputText class="elementL" value="R$ #{dashboardController.sumOfResources}" />
+            <h:outputText class="elementL" value="R$ #{dashboardController.sumValue}" />
         </div>
         <div>
             <h3>DESPESAS TOTAIS </h3>
-            <h:outputText class="elementD" value="- R$ #{dashboardController.sumValue}" />
+            <h:outputText class="elementD" value="R$ -#{dashboardController.sumOfResources}" />
         </div>
         <div>
             <h3>LUCRO ATUAL</h3>

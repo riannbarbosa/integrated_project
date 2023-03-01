@@ -17,7 +17,11 @@
 
 <h:body>
 
+
     <div class="sidebar">
+        <h4>Olá</h4>
+        <h:outputText value="#{loginController.user.usuario}">  </h:outputText>
+        <p>Seja bem Vindo(a)</p>
         <div class="content">
             <a href="dashboard.xhtml">Dashboard</a>
             <a href="user.xhtml">Usuário</a>
@@ -27,6 +31,8 @@
         </div>
     </div>
 
+<div class="title">  <h1>Materiais</h1>
+</div>
     <h:form id="dialogs">
         <p:growl id="messages"/>
         <p:dialog header="Novo Material" showEffect="fade" modal="true" widgetVar="resourcesDialog" responsive="true">
@@ -37,9 +43,8 @@
                         <p:inputText id="nome" value="#{resourcesController.resources.name}" required="true" />
                     </div>
                     <div class="field">
-                        <p:outputLabel for="spanish">Data Compra</p:outputLabel>
-                        <p:datePicker id="spanish" value="#{resourcesController.resources.datebuy}" showSeconds="false" showMilliseconds="false" showTime="false" monthNavigator="true"
-                                      pattern="dd/MM/yyyy"/>
+                        <p:outputLabel for="basic">Data Compra</p:outputLabel>
+                        <p:datePicker id="basic" value="#{resourcesController.resources.datebuy}"  pattern="dd/MM/yyyy"/>
 
                     </div>
                     <div class="field">

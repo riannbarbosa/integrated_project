@@ -14,23 +14,19 @@ public class Orders {
     @Column(name = "order_id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Clients client;
 
     @Size(min = 1, max = 30, message = "Deve ter no máximo 30 caracteres!")
-    @NotNull(message = "Não pode estar vazia!")
+    @NotNull(message = "Nome não pode estar vazio!")
     private String name;
 
 
-    @NotNull(message = "Não pode estar vazia!")
     private Date order_date;
 
 
-    private Boolean status;
+    private boolean status;
 
     @NotNull(message = "Não pode estar vazia!")
-    private Double value;
+    private double value;
 
     @Size(min = 1, max = 255, message = "Deve ter no máximo 255 caracteres!")
     private String description;
@@ -43,13 +39,7 @@ public class Orders {
         this.id = id;
     }
 
-    public Clients getClients() {
-        return client;
-    }
 
-    public void setClients(Clients clients) {
-        this.client = clients;
-    }
 
     public String getName() {
         return name;
@@ -67,19 +57,19 @@ public class Orders {
         this.order_date = order_date;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public Double getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(double value) {
         this.value = value;
     }
 

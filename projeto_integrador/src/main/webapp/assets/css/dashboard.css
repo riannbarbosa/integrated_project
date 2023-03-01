@@ -41,11 +41,11 @@ form td {
 
 }
 .container{
-    left:62px;
+    left:-9px;
     position: relative;
     bottom: 150px;
-    gap:6%;
     display:flex;
+    gap:5%;
 }
 div > h3 {
 
@@ -61,4 +61,11 @@ div > h3 {
 
     color: #000000;
 }
+.dash{
+    left:523px;
+    position: relative;
+    bottom: 250px;
+
+}
+
 

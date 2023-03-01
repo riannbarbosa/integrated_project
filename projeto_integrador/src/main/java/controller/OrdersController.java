@@ -9,7 +9,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import dao.OrdersDAO;
 import model.Orders;
@@ -31,6 +33,7 @@ public class OrdersController implements Serializable   {
 
     private List<String> clientList;
 
+
     private List<Orders> listOrders;
 
 
@@ -46,6 +49,13 @@ public class OrdersController implements Serializable   {
     public void init() {
 
         this.listOrders = ordersDAO.listAllOrders();
+        try {
+            clientList = em.createQuery("SELECT c.name FROM Clients c", String.class).getResultList();
+        } catch (Exception e) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Failed to retrieve sum of resources"));
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -71,13 +81,17 @@ public class OrdersController implements Serializable   {
         }
     }
 
-    public void displayNameClient() {
+    public List<String> completeName() {
+        List<String> results = new ArrayList<String>();
         try {
-            clientList = em.createQuery("SELECT c.name FROM Clients c", String.class).getResultList();
+            results = em.createQuery("SELECT c.name FROM Clients c ", String.class)
+                    .getResultList();
         } catch (Exception e) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Failed to retrieve sum of resources"));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Erro Venda"));
             e.printStackTrace();
         }
+        System.out.println(results);
+        return results;
     }
 
 
@@ -141,4 +155,7 @@ public class OrdersController implements Serializable   {
     public void setClientList(List clientList) {
         this.clientList = clientList;
     }
+
+
+
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public class Clients {
 
     @Id
-    @Column(name = "client_id")
+    @Column(name = "id_client")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -40,10 +40,6 @@ public class Clients {
     @Size(min = 1, max = 10, message = "Deve ter no máximo 25 caracteres")
     private String number;
 
-    @OneToMany(mappedBy = "client")
-    private List<Orders> orders;
-
-
     public Integer getId() {
         return id;
     }
@@ -51,6 +47,7 @@ public class Clients {
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;
@@ -102,5 +99,6 @@ public class Clients {
     public void setNumber(String number) {
         this.number = number;
     }
+
 
 }
